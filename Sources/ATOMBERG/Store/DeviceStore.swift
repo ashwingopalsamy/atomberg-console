@@ -231,6 +231,9 @@ final class DeviceStore {
         }
     }
 
+    /// The home list: one group per kind, the busiest devices first inside each. See `DeviceOrder`.
+    var deviceGroups: [DeviceOrder.Group] { DeviceOrder.groups(snapshots, links: links) }
+
     /// The speed of a fan that is on and reachable, otherwise nil. Only such a fan counts as running or spins.
     func runningSpeed(of id: String) -> Int? {
         guard let link = links[id], link != .offline,

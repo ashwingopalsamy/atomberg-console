@@ -118,7 +118,7 @@ private struct HomeView: View {
                         .transition(.opacity)
                 }
                 switch listState {
-                case .devices: Card { deviceList }
+                case .devices: deviceList
                 case .loading: Card { LoadingRow() }
                 case .empty: Card { EmptyRow(onRefresh: refresh) }
                 case .hidden: EmptyView()
@@ -179,21 +179,28 @@ private struct HomeView: View {
     @ViewBuilder
     private var deviceList: some View {
         if store.snapshots.count > Metric.maxVisibleRows {
-            FadingScroll { rows }
+            FadingScroll { cards }
                 .frame(height: Metric.listViewport)
         } else {
-            rows
+            cards
         }
     }
 
-    private var rows: some View {
+    /// One card per kind of device. A device that starts or stops moves to its place with a short slide.
+    private var cards: some View {
         let duplicates = duplicateNames
-        return VStack(alignment: .leading, spacing: 0) {
-            ForEach(store.snapshots) { device in
-                let named = duplicates.contains(device.info.name)
-                row(device, suffix: named ? DeviceFacts.modelName(device.info) : nil)
+        let groups = store.deviceGroups
+        return VStack(alignment: .leading, spacing: 8) {
+            ForEach(groups) { group in
+                Card {
+                    ForEach(group.devices) { device in
+                        let named = duplicates.contains(device.info.name)
+                        row(device, suffix: named ? DeviceFacts.modelName(device.info) : nil)
+                    }
+                }
             }
         }
+        .animation(Motion.pick(Motion.reveal, reduceMotion), value: groups.flatMap(\.devices).map(\.id))
     }
 
     private var duplicateNames: Set<String> {
