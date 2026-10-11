@@ -6,7 +6,7 @@ struct FaqDetail: View {
     @State private var open: Int?
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
-    private static let entries: [(question: String, answer: String)] = [
+    static let entries: [(question: String, answer: String)] = [
         ("Why does a command use a cloud call?",
          "Atomberg allows 100 calls a day. A fan that is heard on your Wi‑Fi is controlled directly and costs none. Otherwise a command is one call."),
         ("Why isn’t my fan found locally?",
