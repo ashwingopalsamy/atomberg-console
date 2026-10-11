@@ -232,11 +232,6 @@ struct IconRow<Control: View>: View {
     var subtitle: String? = nil
     @ViewBuilder var control: Control
 
-    /// A subtitle may hold several lines, one per "\n". Each is one line of 11pt text.
-    private var detailLines: [String] {
-        subtitle?.split(separator: "\n").map(String.init) ?? []
-    }
-
     var body: some View {
         HStack(spacing: 8) {
             Image(systemName: symbol)
@@ -248,8 +243,8 @@ struct IconRow<Control: View>: View {
                 Text(title)
                     .font(.system(size: 13))
                     .foregroundStyle(Palette.label)
-                ForEach(detailLines.indices, id: \.self) { index in
-                    Text(detailLines[index])
+                if let subtitle {
+                    Text(subtitle)
                         .font(.system(size: 11))
                         .monospacedDigit()
                         .foregroundStyle(Palette.secondary)
@@ -260,7 +255,7 @@ struct IconRow<Control: View>: View {
             control
         }
         .padding(.horizontal, Metric.side)
-        .frame(height: detailLines.isEmpty ? Metric.controlRow : Metric.subtitleRow + CGFloat(detailLines.count - 1) * 14)
+        .frame(height: subtitle == nil ? Metric.controlRow : Metric.subtitleRow)
     }
 }
 

@@ -31,7 +31,11 @@ struct SettingsDetail: View {
                 Card {
                     ActionRow(symbol: "arrow.clockwise", title: "Refresh", subtitle: quotaText,
                               action: { Task { await store.refreshFromUser() } }) {
-                        if store.isRefreshing { Spinner(size: 12) }
+                        if store.isRefreshing {
+                            Spinner(size: 12)
+                        } else if let quota = store.quota {
+                            ResetCaption(quota: quota)
+                        }
                     }
                     Hairline().padding(.horizontal, Metric.side)
                     ActionRow(symbol: "key", title: "Replace Credentials", action: onReplaceCredentials) {
@@ -52,7 +56,7 @@ struct SettingsDetail: View {
     }
 
     private var quotaText: String? {
-        store.quota.map { "\($0.remaining) of \($0.limit) cloud calls left\nResets \($0.resetPhrase())" }
+        store.quota.map { "\($0.remaining) of \($0.limit) cloud calls left" }
     }
 
     /// The setter takes the toggle's new value. Reading the store again inside the Task would race on a double selection.
@@ -72,5 +76,24 @@ struct SettingsDetail: View {
                 try? LaunchAtLogin.setEnabled(enabled)
                 launchAtLogin = LaunchAtLogin.isEnabled
             })
+    }
+}
+
+/// When the daily count resets, in the reader's own zone. It sits at the right of the Refresh row, on the same two
+/// lines as the title and subtitle, so the row keeps its height: "Resets" over "tomorrow 5:30 AM".
+private struct ResetCaption: View {
+    let quota: QuotaStatus
+
+    var body: some View {
+        let parts = quota.resetParts()
+        VStack(alignment: .trailing, spacing: 2) {
+            Text("Resets")
+            Text("\(parts.day) \(parts.time)").monospacedDigit()
+        }
+        .font(.system(size: 11))
+        .foregroundStyle(Palette.secondary)
+        .lineLimit(1)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Resets \(quota.resetPhrase())")
     }
 }

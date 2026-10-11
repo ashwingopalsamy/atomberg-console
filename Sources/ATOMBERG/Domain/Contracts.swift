@@ -278,16 +278,23 @@ struct QuotaStatus: Sendable, Equatable {
     /// When the count resets, in the reader's own zone and relative to now: "tomorrow at 5:30 AM".
     /// The limit resets at 00:00 UTC, which is a different time of day, and often a different day, for everyone.
     func resetPhrase(now: Date = .now, calendar: Calendar = .current, locale: Locale = .current) -> String {
-        Self.phrase(for: resetsAt, now: now, calendar: calendar, locale: locale)
+        let parts = resetParts(now: now, calendar: calendar, locale: locale)
+        return "\(parts.day) at \(parts.time)"
+    }
+
+    /// The same moment as two short pieces, for a caption that has little room: ("tomorrow", "5:30 AM").
+    func resetParts(now: Date = .now, calendar: Calendar = .current, locale: Locale = .current) -> (day: String, time: String) {
+        Self.parts(for: resetsAt, now: now, calendar: calendar, locale: locale)
     }
 
     /// The same phrase for the next 00:00 UTC, for messages that have no ledger status to hand.
     static func nextResetPhrase(now: Date = .now, calendar: Calendar = .current, locale: Locale = .current) -> String {
         let next = Date(timeIntervalSince1970: (now.timeIntervalSince1970 / 86_400).rounded(.down) * 86_400 + 86_400)
-        return phrase(for: next, now: now, calendar: calendar, locale: locale)
+        let parts = parts(for: next, now: now, calendar: calendar, locale: locale)
+        return "\(parts.day) at \(parts.time)"
     }
 
-    private static func phrase(for moment: Date, now: Date, calendar: Calendar, locale: Locale) -> String {
+    private static func parts(for moment: Date, now: Date, calendar: Calendar, locale: Locale) -> (day: String, time: String) {
         func style(_ configure: (Date.FormatStyle) -> Date.FormatStyle) -> String {
             moment.formatted(configure(Date.FormatStyle(
                 date: .omitted, time: .omitted, locale: locale, calendar: calendar, timeZone: calendar.timeZone)))
@@ -302,7 +309,7 @@ struct QuotaStatus: Sendable, Equatable {
         } else {
             day = style { $0.weekday(.wide) }
         }
-        return "\(day) at \(time)"
+        return (day, time)
     }
 }
 
