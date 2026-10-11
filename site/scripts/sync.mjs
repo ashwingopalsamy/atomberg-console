@@ -102,6 +102,30 @@ if (m) {
   knowledge.release = { version: m[1], date: m[2], notes: m[3].trim(), url: `${gh}/releases/tag/v${m[1]}` };
 }
 
+// What is actually published: the DMG on the release, and the Homebrew cask in the tap. The page only offers
+// what exists, so a button never leads to an empty releases page.
+const probe = async (url, options = {}) => {
+  try {
+    return await fetch(url, { ...options, signal: AbortSignal.timeout(8000) });
+  } catch {
+    return null;
+  }
+};
+if (knowledge.release) {
+  const api = await probe(`https://api.github.com/repos/ashwingopalsamy/atomberg-console/releases/tags/v${knowledge.release.version}`, {
+    headers: { accept: "application/vnd.github+json" },
+  });
+  if (api?.ok) {
+    const published = await api.json();
+    const dmg = published.assets?.find((a) => a.name.endsWith(".dmg"));
+    knowledge.release.published = true;
+    knowledge.release.dmgUrl = dmg?.browser_download_url ?? null;
+    knowledge.release.dmgName = dmg?.name ?? null;
+  }
+  const cask = await probe("https://raw.githubusercontent.com/ashwingopalsamy/homebrew-tap/main/Casks/atomberg-console.rb");
+  knowledge.release.brew = Boolean(cask?.ok);
+}
+
 knowledge.install = {
   homebrew: ["brew install --cask ashwingopalsamy/tap/atomberg-console"],
   dmg: [

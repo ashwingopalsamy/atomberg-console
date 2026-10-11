@@ -9,7 +9,16 @@ export const TAGLINE = "a menu bar app for atomberg fans, purifiers and locks";
 
 export const faq = knowledge.faq as { id: string; q: string; a: string; app: boolean }[];
 export const pages = knowledge.pages as { slug: string; url: string; title: string; description: string }[];
-export const release = knowledge.release as { version: string; date: string; notes: string; url: string } | null;
+export const release = knowledge.release as {
+  version: string;
+  date: string;
+  notes: string;
+  url: string;
+  published?: boolean;
+  dmgUrl?: string | null;
+  dmgName?: string | null;
+  brew?: boolean;
+} | null;
 
 export const absolute = (path = "") => `${ORIGIN}${BASE}${path}`;
 

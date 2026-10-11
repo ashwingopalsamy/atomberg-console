@@ -68,13 +68,18 @@ h1, h2, h3 { margin: 0; font-weight: 600; text-wrap: balance; }
 .dim { color: #a4a7ae; }
 .copy p { margin: 24px 0 0; max-width: 31em; font-size: 19px; line-height: 1.6; color: var(--t3); text-wrap: pretty; }
 .btns { display: flex; flex-wrap: wrap; gap: 10px; }
-.btn { height: 46px; padding: 0 22px; border-radius: 12px; border: 1px solid var(--b2); display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 15px; font-weight: 500; transition: background 0.2s, border-color 0.2s, transform 0.25s var(--spring); }
+.btn { height: 46px; padding: 0 22px; border-radius: 12px; border: 1px solid var(--b2); background: transparent; color: var(--t1); font-family: inherit; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 15px; font-weight: 500; transition: background 0.2s, border-color 0.2s, transform 0.25s var(--spring); }
 .btn:hover { background: var(--s1); border-color: var(--b3); }
 .btn:active { transform: scale(0.97); }
 .btn.solid { padding: 0 24px 0 18px; border-color: transparent; background: var(--t1); color: var(--bg); font-weight: 550; }
 .btn.solid:hover { background: #e4e5e8; }
 .btn svg { width: 19px; height: 19px; }
 .narrow { display: none; }
+.brewbtn .ok { display: none; }
+.brewbtn.done .mug { display: none; }
+.brewbtn.done .ok { display: block; }
+.brewbtn:hover .mug { animation: sip 0.6s var(--spring); }
+@keyframes sip { 0% { transform: rotate(0); } 40% { transform: rotate(-12deg) translateY(-1px); } 100% { transform: rotate(0); } }
 .dl:hover .da, .dl:focus-visible .da { animation: dip 0.65s cubic-bezier(0.34, 1.4, 0.64, 1); }
 @keyframes dip { 0% { transform: translateY(0); } 30% { transform: translateY(-3.5px); } 62% { transform: translateY(3px); } 100% { transform: translateY(0); } }
 .fine { margin: 20px 0 0; font-size: 13px; color: var(--t4); }
@@ -170,9 +175,9 @@ h1, h2, h3 { margin: 0; font-weight: 600; text-wrap: balance; }
   .fan { position: absolute; inset: 0; width: auto; height: auto; }
   .fan img { left: calc(76% - 180px); width: 360px; height: 360px; margin: -180px 0 0; }
   .cta { margin-top: 0; }
-  .btns { flex-wrap: nowrap; }
-  .btn { flex: 1; height: 54px; border-radius: 14px; font-size: 15.5px; }
-  .btn.solid { flex: 1.25; font-size: 16px; }
+  .btns { display: grid; grid-template-columns: 1fr 1fr; }
+  .btn { height: 54px; border-radius: 14px; font-size: 15.5px; }
+  .btn.solid { grid-column: 1 / -1; font-size: 16px; }
   .wide { display: none; }
   .narrow { display: inline; }
   .fine { margin-top: 16px; line-height: 1.5; }

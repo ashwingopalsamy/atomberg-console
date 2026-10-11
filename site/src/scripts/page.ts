@@ -92,3 +92,24 @@ const target = location.hash ? document.getElementById(location.hash.slice(1)) :
 if (target instanceof HTMLDetailsElement) target.open = true;
 spy();
 paint();
+
+// Copy buttons: the icon turns into a check and the label says so for a moment.
+document.querySelectorAll<HTMLButtonElement>("[data-copy]").forEach((button) => {
+  const label = button.querySelector<HTMLElement>("[data-label]");
+  const idle = label?.textContent ?? "";
+  let timer: number | undefined;
+  button.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(button.dataset.copy ?? "");
+    } catch {
+      return; // the command is shown in the Install section
+    }
+    button.classList.add("done");
+    if (label) label.textContent = "Copied";
+    clearTimeout(timer);
+    timer = window.setTimeout(() => {
+      button.classList.remove("done");
+      if (label) label.textContent = idle;
+    }, 1600);
+  });
+});

@@ -10,7 +10,7 @@ cask "atomberg-console" do
 
   url "https://github.com/ashwingopalsamy/atomberg-console/releases/download/v#{version}/Atomberg-Console-#{version}.dmg"
   name "Atomberg Console"
-  desc "Menu bar console for Atomberg fans, purifiers and locks (unofficial)"
+  desc "Menu bar app for Atomberg fans, purifiers and locks"
   homepage "https://github.com/ashwingopalsamy/atomberg-console"
 
   depends_on macos: ">= :tahoe"
