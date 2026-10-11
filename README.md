@@ -1,8 +1,5 @@
 <p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.svg">
-    <img src="assets/banner-light.svg" alt="Atomberg Console: one click, every fan, zero noise" width="100%">
-  </picture>
+  <img src="assets/banner.svg" alt="Atomberg Console: one click, every fan, zero noise" width="100%">
 </p>
 
 <p align="center">
