@@ -1,0 +1,17 @@
+# Atomberg Console
+
+> An unofficial macOS menu bar app for Atomberg fans, water purifiers and locks. It controls fans over your Wi‑Fi (UDP 5625 and 5600) and falls back to Atomberg's cloud API, spending at most one of the 100 daily calls per command. One cloud host, no dependencies, no analytics. Source-available under PolyForm Noncommercial 1.0.0. Not affiliated with Atomberg.
+
+## Docs
+- [README](README.md): what it is and how to install it.
+- [Privacy](docs/PRIVACY.md): every host and port it contacts, what it stores, how to verify.
+- [Call budget](docs/BUDGET.md): what each action costs against 100 calls a day.
+- [Local control troubleshooting](docs/TROUBLESHOOTING.md): why a fan is not found on your network.
+- [FAQ](docs/faq.json): questions and answers as JSON.
+- [MCP](docs/MCP.md): site tools and the planned app contract.
+- [Design](docs/DESIGN.md): tokens, layout, status glyphs.
+
+## Optional
+- [Changelog](CHANGELOG.md)
+- [Contributing](CONTRIBUTING.md)
+- [Security](SECURITY.md)

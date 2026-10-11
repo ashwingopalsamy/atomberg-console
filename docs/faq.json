@@ -1,0 +1,74 @@
+[
+  {
+    "id": "cloud-call",
+    "app": true,
+    "q": "Why does a command use a cloud call?",
+    "a": "Atomberg allows 100 calls a day. A fan that is heard on your Wi‑Fi is controlled directly and costs none. Otherwise a command is one call."
+  },
+  {
+    "id": "not-found-locally",
+    "app": true,
+    "q": "Why isn’t my fan found locally?",
+    "a": "The fan and this Mac must be on the same Wi‑Fi, and Local Network access must be on for this app. Tap the wifi button to look again."
+  },
+  {
+    "id": "local-vs-cloud",
+    "app": true,
+    "q": "What do Local and Cloud mean?",
+    "a": "Local: the command goes over your Wi‑Fi. Cloud: it goes through Atomberg’s servers and counts toward the daily limit."
+  },
+  {
+    "id": "credentials",
+    "app": true,
+    "q": "Where are my credentials?",
+    "a": "In your macOS Keychain, nowhere else. They are sent only to Atomberg’s API."
+  },
+  {
+    "id": "connects-to",
+    "app": true,
+    "q": "What does it connect to?",
+    "a": "api.developer.atomberg-iot.com over HTTPS, and your fans on UDP ports 5625 and 5600. Nothing else. No analytics, no updater."
+  },
+  {
+    "id": "keychain-prompt",
+    "app": true,
+    "q": "Why does the Keychain ask for access?",
+    "a": "macOS asks when it does not recognise the app. Choose Always Allow once."
+  },
+  {
+    "id": "reset",
+    "app": true,
+    "q": "How do I reset it?",
+    "a": "Settings → Replace Credentials. To remove everything, delete the app and the Keychain item “com.ashwin.ATOMBERG”."
+  },
+  {
+    "id": "official",
+    "app": true,
+    "q": "Is this official?",
+    "a": "No. It is unofficial and not affiliated with Atomberg. Source-available under PolyForm Noncommercial 1.0.0."
+  },
+  {
+    "id": "devices",
+    "app": false,
+    "q": "Which Atomberg devices does it support?",
+    "a": "Whatever your developer account lists: fans (local network and cloud), water purifiers and smart locks (cloud only). Local control over UDP exists for fans only."
+  },
+  {
+    "id": "cost",
+    "app": false,
+    "q": "Is it free?",
+    "a": "Yes, for noncommercial use. It is source-available under the PolyForm Noncommercial License 1.0.0, so commercial use is not allowed."
+  },
+  {
+    "id": "requirements",
+    "app": false,
+    "q": "What do I need to run it?",
+    "a": "macOS 26 or later, and an Atomberg account with Developer Mode turned on in the Atomberg Home app to get an API key and refresh token."
+  },
+  {
+    "id": "uninstall",
+    "app": false,
+    "q": "How do I uninstall it?",
+    "a": "Quit it from the power button, delete Atomberg Console.app, then remove ~/Library/Application Support/ATOMBERG and the Keychain item “com.ashwin.ATOMBERG”. With Homebrew: brew uninstall --zap --cask atomberg-console."
+  }
+]

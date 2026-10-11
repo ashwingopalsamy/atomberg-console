@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: If you use this software, please cite it as below.
+title: Atomberg Console
+type: software
+authors:
+  - family-names: Gopalsamy
+    given-names: Ashwin
+version: 1.0.0
+date-released: 2026-10-11
+license: PolyForm-Noncommercial-1.0.0
+repository-code: https://github.com/ashwingopalsamy/atomberg-console
+url: https://apps.ashwingopalsamy.in/atomberg-console/
+abstract: >-
+  An unofficial macOS menu bar console for Atomberg fans, water purifiers and locks.
+  Local control over UDP, one cloud host, no dependencies.
+keywords:
+  - macOS
+  - menu bar
+  - Atomberg
+  - smart home
+  - local control
