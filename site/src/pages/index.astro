@@ -4,6 +4,7 @@ import { BASE, REPO, webSite, softwareApplication, sourceCode } from "../lib";
 
 const nodes = [webSite(), softwareApplication(), sourceCode()];
 const brew = "brew install --cask ashwingopalsamy/tap/atomberg-console";
+const layer = (name: string) => `${BASE}brand/${name}-xl.png`;
 ---
 <Base
   home
@@ -14,17 +15,13 @@ const brew = "brew install --cask ashwingopalsamy/tap/atomberg-console";
 >
   <div class="screen">
     <header class="bar">
-      <button class="logo" type="button" aria-label="Atomberg Console. Tap to turn the blades.">
-        <img src={`${BASE}brand/tile.png`} alt="" width="88" height="88" />
-        <img class="glyph" src={`${BASE}brand/glyph.png`} alt="" width="88" height="88" />
-      </button>
+      <a class="word" href={BASE}>Atomberg Console</a>
       <a class="round" href={REPO} rel="noopener" aria-label="Atomberg Console on GitHub"><svg class="i"><use href="#i-github" /></svg></a>
     </header>
 
     <div class="words">
-      <h1>Atomberg Console is a small menu bar app for Atomberg fans, purifiers and locks.</h1>
-      <p>It controls fans over your Wi‑Fi and only reaches for Atomberg's cloud when it has to, so an ordinary day costs about six of the 100 calls the API allows.</p>
-      <p>It contacts one server and your fans, nothing else. There are no accounts, analytics or updater, and <a href={REPO}>the source is public</a>, so you can <a href={`${BASE}privacy/`}>check</a>.</p>
+      <h1>Your Atomberg fans, in the menu bar.</h1>
+      <p>Change a speed without picking up your phone. It talks to your fans over your Wi‑Fi and calls nobody else.</p>
       <div class="actions">
         <a class="btn solid" href={`${REPO}/releases/latest`}>Download</a>
         <button class="btn" type="button" data-copy={brew} aria-label="Copy the Homebrew install command">
@@ -32,7 +29,18 @@ const brew = "brew install --cask ashwingopalsamy/tap/atomberg-console";
           <svg class="i copy"><use href="#i-copy" /></svg><svg class="i ok"><use href="#i-check" /></svg>
         </button>
       </div>
-      <p class="fine">macOS 26 or later. Unofficial, and not affiliated with Atomberg.</p>
+      <p class="fine">macOS 26 or later. Unofficial, not affiliated with Atomberg.</p>
+    </div>
+
+    <div class="stage">
+      <div class="light" aria-hidden="true"></div>
+      <button class="fan" type="button" aria-label="The app icon, a four-blade fan. Drag it or press Space to spin it.">
+        <img class="tile" src={layer("tile")} alt="" width="1280" height="1280" />
+        <img class="g g2" src={layer("glyph")} alt="" width="1280" height="1280" />
+        <img class="g g1" src={layer("glyph")} alt="" width="1280" height="1280" />
+        <img class="g g0" src={layer("glyph")} alt="" width="1280" height="1280" />
+      </button>
+      <p class="hint" aria-hidden="true">Flick it</p>
     </div>
 
     <footer class="note">

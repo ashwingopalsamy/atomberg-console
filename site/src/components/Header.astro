@@ -10,10 +10,7 @@ const links = [
 ---
 <header class="top">
   <div class="in">
-    <a class="logo" href={BASE} aria-label="Atomberg Console, home">
-      <img src={`${BASE}brand/tile.png`} alt="" width="80" height="80" />
-      <img class="glyph" src={`${BASE}brand/glyph.png`} alt="" width="80" height="80" />
-    </a>
+    <a class="mark" href={BASE} aria-label="Atomberg Console, home"><img src={`${BASE}icon-192.png`} alt="" width="36" height="36" /></a>
     <nav class="nav" aria-label="Main">
       <span class="pill" aria-hidden="true"></span>
       {links.map(([href, label]) => <a href={`${BASE}${href}`} aria-current={path === href ? "page" : undefined}>{label}</a>)}
