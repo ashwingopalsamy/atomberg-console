@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="96" height="96" role="img" aria-label="Atomberg Console">
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#34343a"/>
+      <stop offset="1" stop-color="#0e0e10"/>
+    </linearGradient>
+    <path id="blade" d="M50 45 C43 31 45 11 61 11 C76 11 71 36 55 47 Z"/>
+  </defs>
+  <rect x="6" y="6" width="88" height="88" rx="20" fill="url(#tile)"/>
+  <g fill="#fff">
+    <use href="#blade"/>
+    <use href="#blade" transform="rotate(90 50 50)"/>
+    <use href="#blade" transform="rotate(180 50 50)"/>
+    <use href="#blade" transform="rotate(270 50 50)"/>
+  </g>
+  <circle cx="50" cy="50" r="6.5" fill="#1b1b1f"/>
+  <circle cx="50" cy="50" r="3" fill="#fff"/>
+</svg>
