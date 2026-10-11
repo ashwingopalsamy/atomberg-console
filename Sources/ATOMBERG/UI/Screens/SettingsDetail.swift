@@ -52,7 +52,7 @@ struct SettingsDetail: View {
     }
 
     private var quotaText: String? {
-        store.quota.map { "\($0.remaining) of \($0.limit) cloud calls left today" }
+        store.quota.map { "\($0.remaining) of \($0.limit) cloud calls left\nResets \($0.resetPhrase())" }
     }
 
     /// The setter takes the toggle's new value. Reading the store again inside the Task would race on a double selection.

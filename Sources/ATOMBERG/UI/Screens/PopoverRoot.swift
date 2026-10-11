@@ -270,7 +270,7 @@ private struct HomeView: View {
             break
         }
         if issue?.kind == .quotaExhausted || store.quota?.remaining == 0 {
-            let until = store.quota.map { "until \(DeviceFacts.clock($0.resetsAt))" } ?? "today"
+            let until = store.quota.map { "until \($0.resetPhrase())" } ?? "today"
             return Notice(symbol: "hourglass", text: "No cloud calls left \(until)." + stillLocal)
         }
         if issue?.kind == .quotaReserved {
@@ -278,7 +278,7 @@ private struct HomeView: View {
         }
         if let quota = store.quota, quota.remaining <= DeviceFacts.lowQuotaRemaining {
             let count = quota.remaining == 1 ? "1 cloud call" : "\(quota.remaining) cloud calls"
-            return Notice(symbol: "hourglass", text: "\(count) left today. Resets at \(DeviceFacts.clock(quota.resetsAt)).")
+            return Notice(symbol: "hourglass", text: "\(count) left. Resets \(quota.resetPhrase()).")
         }
         return nil
     }

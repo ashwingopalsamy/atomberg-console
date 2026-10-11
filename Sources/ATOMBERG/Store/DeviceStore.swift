@@ -934,7 +934,7 @@ final class DeviceStore {
         case .quotaReserved:
             return "Cloud reads are paused to keep \(QuotaPolicy.reserve) calls for commands."
         case .quotaExhausted:
-            return "You’ve used today’s \(QuotaPolicy.dailyLimit) cloud calls. They reset at 00:00 UTC."
+            return "You’ve used today’s \(QuotaPolicy.dailyLimit) cloud calls. They reset \(QuotaStatus.nextResetPhrase())."
         case .invalidCredentials:
             return "ATOMBERG rejected the credentials. Replace them from the menu bar."
         case .developerModeOff:

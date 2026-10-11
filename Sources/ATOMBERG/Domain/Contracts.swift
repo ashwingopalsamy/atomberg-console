@@ -274,6 +274,36 @@ struct QuotaStatus: Sendable, Equatable {
     let resetsAt: Date
 
     var remaining: Int { max(0, limit - used) }
+
+    /// When the count resets, in the reader's own zone and relative to now: "tomorrow at 5:30 AM".
+    /// The limit resets at 00:00 UTC, which is a different time of day, and often a different day, for everyone.
+    func resetPhrase(now: Date = .now, calendar: Calendar = .current, locale: Locale = .current) -> String {
+        Self.phrase(for: resetsAt, now: now, calendar: calendar, locale: locale)
+    }
+
+    /// The same phrase for the next 00:00 UTC, for messages that have no ledger status to hand.
+    static func nextResetPhrase(now: Date = .now, calendar: Calendar = .current, locale: Locale = .current) -> String {
+        let next = Date(timeIntervalSince1970: (now.timeIntervalSince1970 / 86_400).rounded(.down) * 86_400 + 86_400)
+        return phrase(for: next, now: now, calendar: calendar, locale: locale)
+    }
+
+    private static func phrase(for moment: Date, now: Date, calendar: Calendar, locale: Locale) -> String {
+        func style(_ configure: (Date.FormatStyle) -> Date.FormatStyle) -> String {
+            moment.formatted(configure(Date.FormatStyle(
+                date: .omitted, time: .omitted, locale: locale, calendar: calendar, timeZone: calendar.timeZone)))
+        }
+        let time = moment.formatted(Date.FormatStyle(
+            date: .omitted, time: .shortened, locale: locale, calendar: calendar, timeZone: calendar.timeZone))
+        let day: String
+        if calendar.isDate(moment, inSameDayAs: now) {
+            day = "today"
+        } else if let next = calendar.date(byAdding: .day, value: 1, to: now), calendar.isDate(moment, inSameDayAs: next) {
+            day = "tomorrow"
+        } else {
+            day = style { $0.weekday(.wide) }
+        }
+        return "\(day) at \(time)"
+    }
 }
 
 // MARK: - Errors
