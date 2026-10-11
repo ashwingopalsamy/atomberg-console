@@ -1,0 +1,16 @@
+# Atomberg Console: how automated readers may use this site
+# https://apps.ashwingopalsamy.in/atomberg-console/
+
+Search engines, answer engines and agents may read, quote and cite these pages.
+Please link to the page you used.
+
+Prose:   CC BY 4.0 (attribution required).
+Code:    PolyForm Noncommercial 1.0.0 (source-available), https://github.com/ashwingopalsamy/atomberg-console
+Logo:    The Atomberg name and logo belong to Atomberg. This project is unofficial and uses the name descriptively only.
+
+Machine-readable:
+  /atomberg-console/llms.txt
+  /atomberg-console/llms-full.txt
+  /atomberg-console/knowledge.json
+  /atomberg-console/mcp          (read-only MCP over streamable HTTP)
+  Accept: text/markdown on any page returns Markdown.

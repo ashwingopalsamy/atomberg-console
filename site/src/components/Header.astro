@@ -1,0 +1,26 @@
+---
+import { BASE, REPO } from "../lib";
+const { path = "" } = Astro.props;
+const links = [
+  ["install/", "Install"],
+  ["call-budget/", "Budget"],
+  ["privacy/", "Privacy"],
+  ["faq/", "FAQ"],
+];
+---
+<header class="top">
+  <div class="in">
+    <a class="logo" href={BASE} aria-label="Atomberg Console, home">
+      <img src={`${BASE}brand/tile.png`} alt="" width="80" height="80" />
+      <img class="glyph" src={`${BASE}brand/glyph.png`} alt="" width="80" height="80" />
+    </a>
+    <nav class="nav" aria-label="Main">
+      <span class="pill" aria-hidden="true"></span>
+      {links.map(([href, label]) => <a href={`${BASE}${href}`} aria-current={path === href ? "page" : undefined}>{label}</a>)}
+    </nav>
+    <a class="round" href={REPO} rel="noopener" aria-label="Atomberg Console on GitHub"><svg class="i"><use href="#i-github" /></svg></a>
+  </div>
+</header>
+<script>
+  import "../scripts/nav";
+</script>

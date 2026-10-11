@@ -1,0 +1,11 @@
+{
+  "name": "atomberg-console-docs",
+  "title": "Atomberg Console docs",
+  "description": "Read-only tools over the Atomberg Console documentation: install steps, privacy facts, the 100-call budget, the FAQ and the latest release.",
+  "version": "1.0.0",
+  "transport": { "type": "streamable-http", "url": "https://apps.ashwingopalsamy.in/atomberg-console/mcp" },
+  "authentication": "none",
+  "readOnly": true,
+  "tools": ["search_docs", "get_faq", "get_install_steps", "get_privacy_policy", "get_call_budget", "get_release"],
+  "documentation": "https://apps.ashwingopalsamy.in/atomberg-console/developers/"
+}

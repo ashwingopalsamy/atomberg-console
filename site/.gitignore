@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.astro/
+.wrangler/
+src/generated/
+src/pages/_docs/
+src/pages/install.md
+src/pages/calls-no-one.md
+src/pages/call-budget.md
+src/pages/local-control.md
+src/pages/privacy.md
+src/pages/developers.md
+src/pages/design.md
+src/pages/changelog.md
+src/pages/unofficial.md
+hub/public/

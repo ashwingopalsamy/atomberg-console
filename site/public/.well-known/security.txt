@@ -1,0 +1,5 @@
+Contact: https://github.com/ashwingopalsamy/atomberg-console/security/advisories/new
+Expires: 2027-10-11T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://apps.ashwingopalsamy.in/atomberg-console/.well-known/security.txt
+Policy: https://github.com/ashwingopalsamy/atomberg-console/blob/main/SECURITY.md

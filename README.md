@@ -13,7 +13,8 @@
 
 <p align="center">
   an unofficial menu bar console for <b>Atomberg</b> fans, purifiers and locks.<br>
-  local first · 100-call budget respected · talks to nobody else
+  local first · 100-call budget respected · talks to nobody else<br>
+  <a href="https://apps.ashwingopalsamy.in/atomberg-console/">apps.ashwingopalsamy.in/atomberg-console</a>
 </p>
 
 ---

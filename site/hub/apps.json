@@ -1,0 +1,13 @@
+{
+  "host": "apps.ashwingopalsamy.in",
+  "owner": { "name": "Ashwin Gopalsamy", "url": "https://ashwingopalsamy.in" },
+  "apps": [
+    {
+      "slug": "atomberg-console",
+      "binding": "ATOMBERG_CONSOLE",
+      "name": "Atomberg Console",
+      "description": "An unofficial macOS menu bar console for Atomberg fans, purifiers and locks.",
+      "repo": "https://github.com/ashwingopalsamy/atomberg-console"
+    }
+  ]
+}

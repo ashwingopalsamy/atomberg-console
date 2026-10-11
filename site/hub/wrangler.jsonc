@@ -1,0 +1,15 @@
+{
+  "name": "apps-hub",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-04-01",
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [{ "pattern": "apps.ashwingopalsamy.in", "custom_domain": true }],
+  "services": [{ "binding": "ATOMBERG_CONSOLE", "service": "atomberg-console-site" }],
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": true,
+    "not_found_handling": "404-page"
+  }
+}

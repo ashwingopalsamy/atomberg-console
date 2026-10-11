@@ -1,0 +1,5 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": ["src", "worker", "hub/src", "scripts"],
+  "compilerOptions": { "types": ["@cloudflare/workers-types"], "resolveJsonModule": true }
+}
