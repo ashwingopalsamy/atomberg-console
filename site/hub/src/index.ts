@@ -19,6 +19,7 @@ export default {
     headers.set("referrer-policy", "strict-origin-when-cross-origin");
     headers.set("strict-transport-security", "max-age=31536000; includeSubDomains");
     if ((headers.get("content-type") ?? "").startsWith("text/html")) {
+      headers.set("cache-control", "public, max-age=300, no-transform");
       headers.set("content-security-policy", "default-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'");
     }
     return new Response(response.body, { status: response.status, headers });

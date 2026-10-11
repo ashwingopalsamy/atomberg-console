@@ -117,7 +117,8 @@ function secured(response: Response, path: string): Response {
   const type = headers.get("content-type") ?? "";
   if (type.startsWith("text/html")) {
     headers.set("content-security-policy", CSP);
-    headers.set("cache-control", "public, max-age=0, must-revalidate");
+    // no-transform keeps Cloudflare from injecting its analytics beacon into the page.
+    headers.set("cache-control", "public, max-age=0, must-revalidate, no-transform");
   } else if (path.startsWith("/_astro/")) {
     headers.set("cache-control", "public, max-age=31536000, immutable");
   } else if (!headers.has("cache-control")) {
