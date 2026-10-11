@@ -1,0 +1,10 @@
+.build/
+.swiftpm/
+build/
+DerivedData/
+*.app/
+*.dmg
+.DS_Store
+notes.md
+# Atomberg's logo is theirs: not committed. The first-run window shows it only if you add your own copy.
+Resources/Brand/
