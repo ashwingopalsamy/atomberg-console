@@ -118,7 +118,7 @@ private struct HomeView: View {
                         .transition(.opacity)
                 }
                 switch listState {
-                case .devices: Card { deviceList }
+                case .devices: deviceList
                 case .loading: Card { LoadingRow() }
                 case .empty: Card { EmptyRow(onRefresh: refresh) }
                 case .hidden: EmptyView()
@@ -179,21 +179,28 @@ private struct HomeView: View {
     @ViewBuilder
     private var deviceList: some View {
         if store.snapshots.count > Metric.maxVisibleRows {
-            FadingScroll { rows }
+            FadingScroll { cards }
                 .frame(height: Metric.listViewport)
         } else {
-            rows
+            cards
         }
     }
 
-    private var rows: some View {
+    /// One card per kind of device. A device that starts or stops moves to its place with a short slide.
+    private var cards: some View {
         let duplicates = duplicateNames
-        return VStack(alignment: .leading, spacing: 0) {
-            ForEach(store.snapshots) { device in
-                let named = duplicates.contains(device.info.name)
-                row(device, suffix: named ? DeviceFacts.modelName(device.info) : nil)
+        let groups = store.deviceGroups
+        return VStack(alignment: .leading, spacing: 8) {
+            ForEach(groups) { group in
+                Card {
+                    ForEach(group.devices) { device in
+                        let named = duplicates.contains(device.info.name)
+                        row(device, suffix: named ? DeviceFacts.modelName(device.info) : nil)
+                    }
+                }
             }
         }
+        .animation(Motion.pick(Motion.reveal, reduceMotion), value: groups.flatMap(\.devices).map(\.id))
     }
 
     private var duplicateNames: Set<String> {
@@ -270,7 +277,7 @@ private struct HomeView: View {
             break
         }
         if issue?.kind == .quotaExhausted || store.quota?.remaining == 0 {
-            let until = store.quota.map { "until \(DeviceFacts.clock($0.resetsAt))" } ?? "today"
+            let until = store.quota.map { "until \($0.resetPhrase())" } ?? "today"
             return Notice(symbol: "hourglass", text: "No cloud calls left \(until)." + stillLocal)
         }
         if issue?.kind == .quotaReserved {
@@ -278,7 +285,7 @@ private struct HomeView: View {
         }
         if let quota = store.quota, quota.remaining <= DeviceFacts.lowQuotaRemaining {
             let count = quota.remaining == 1 ? "1 cloud call" : "\(quota.remaining) cloud calls"
-            return Notice(symbol: "hourglass", text: "\(count) left today. Resets at \(DeviceFacts.clock(quota.resetsAt)).")
+            return Notice(symbol: "hourglass", text: "\(count) left. Resets \(quota.resetPhrase()).")
         }
         return nil
     }

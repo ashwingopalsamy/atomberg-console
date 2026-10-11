@@ -6,7 +6,8 @@ enum Routing {
             return .lan
         }
         guard cloudAllowed(quota) else {
-            return .unavailable(reason: "No cloud calls left today. They reset at 00:00 UTC.")
+            let when = quota?.resetPhrase() ?? QuotaStatus.nextResetPhrase()
+            return .unavailable(reason: "No cloud calls left. They reset \(when).")
         }
         return .cloud
     }

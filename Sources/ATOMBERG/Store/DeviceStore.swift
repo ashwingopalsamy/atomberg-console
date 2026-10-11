@@ -231,6 +231,9 @@ final class DeviceStore {
         }
     }
 
+    /// The home list: one group per kind, the busiest devices first inside each. See `DeviceOrder`.
+    var deviceGroups: [DeviceOrder.Group] { DeviceOrder.groups(snapshots, links: links) }
+
     /// The speed of a fan that is on and reachable, otherwise nil. Only such a fan counts as running or spins.
     func runningSpeed(of id: String) -> Int? {
         guard let link = links[id], link != .offline,
@@ -934,7 +937,7 @@ final class DeviceStore {
         case .quotaReserved:
             return "Cloud reads are paused to keep \(QuotaPolicy.reserve) calls for commands."
         case .quotaExhausted:
-            return "You’ve used today’s \(QuotaPolicy.dailyLimit) cloud calls. They reset at 00:00 UTC."
+            return "You’ve used today’s \(QuotaPolicy.dailyLimit) cloud calls. They reset \(QuotaStatus.nextResetPhrase())."
         case .invalidCredentials:
             return "ATOMBERG rejected the credentials. Replace them from the menu bar."
         case .developerModeOff:
