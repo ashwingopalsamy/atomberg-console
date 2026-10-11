@@ -29,7 +29,7 @@ const xml = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, 
 // Markdown mirrors: /<slug>.md next to /<slug>/
 const mirrors = knowledge.pages.map((p) => ({
   ...p,
-  text: `# ${p.title}\n\n> ${p.description}\n\nCanonical: ${abs(`${p.slug}/`)}\n\n${absolutise(p.markdown).trim()}\n`,
+  text: `# ${p.title}\n\n> ${p.description}\n\nCanonical: ${abs(p.anchor ?? "")}\n\n${absolutise(p.markdown).trim()}\n`,
 }));
 for (const m of mirrors) write(`${m.slug}.md`, m.text);
 
@@ -37,8 +37,8 @@ const faqText = (knowledge.faq ?? []).map((f) => `## ${f.q}\n\n${f.a}\n`).join("
 write("faq.md", `# FAQ\n\n> Short answers about Atomberg Console.\n\nCanonical: ${abs("faq/")}\n\n${faqText}`);
 
 const sections = [
-  ["Start here", ["install", "calls-no-one", "call-budget", "local-control"]],
-  ["Reference", ["privacy", "developers", "design", "changelog", "unofficial"]],
+  ["Start here", ["install", "call-budget", "local-control", "privacy"]],
+  ["Reference", ["developers", "design", "changelog", "unofficial"]],
 ];
 const bySlug = Object.fromEntries(mirrors.map((m) => [m.slug, m]));
 const homeLinks = sections
@@ -53,7 +53,7 @@ write(
 );
 
 // sitemap
-const urls = ["", "faq/", ...knowledge.pages.map((p) => `${p.slug}/`)];
+const urls = [""];
 write(
   "sitemap.xml",
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls

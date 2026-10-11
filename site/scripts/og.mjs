@@ -9,10 +9,10 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const dist = join(root, "dist");
 const knowledge = JSON.parse(readFileSync(join(root, "src/generated/knowledge.json"), "utf8"));
 const font = (weight) =>
-  readFileSync(join(root, `node_modules/@fontsource/inter/files/inter-latin-${weight}-normal.woff`));
+  readFileSync(join(root, `node_modules/@fontsource/geist-sans/files/geist-sans-latin-${weight}-normal.woff`));
 const fonts = [
-  { name: "Inter", data: font(400), weight: 400, style: "normal" },
-  { name: "Inter", data: font(600), weight: 600, style: "normal" },
+  { name: "Geist", data: font(400), weight: 400, style: "normal" },
+  { name: "Geist", data: font(600), weight: 600, style: "normal" },
 ];
 const png = (file) => `data:image/png;base64,${readFileSync(join(root, "public/brand", file)).toString("base64")}`;
 const tile = png("tile.png");
@@ -26,7 +26,7 @@ function card({ title, description, big }) {
     el("div", { width: 18, height: 26, borderRadius: 5, background: i < 6 ? "#f5f5f7" : "#1c1c20" }),
   );
   return row(
-    { width: 1200, height: 630, background: "#0e0f10", padding: 72, flexDirection: "column", justifyContent: "space-between", fontFamily: "Inter" },
+    { width: 1200, height: 630, background: "#0e0f10", padding: 72, flexDirection: "column", justifyContent: "space-between", fontFamily: "Geist" },
     [
       row({ alignItems: "center", gap: 20 }, [
         row({ position: "relative", width: 72, height: 72 }, [
@@ -49,8 +49,6 @@ function card({ title, description, big }) {
 
 const items = [
   { slug: "home", title: "All your Atomberg devices, in the menu bar.", description: "Fans, purifiers and locks, one click away. It talks to nobody but Atomberg.", big: true },
-  { slug: "faq", title: "Questions, answered.", description: "The 100-call limit, local control, credentials, and what it connects to." },
-  ...knowledge.pages.map((p) => ({ slug: p.slug, title: p.title, description: p.description })),
 ];
 
 mkdirSync(join(dist, "og"), { recursive: true });

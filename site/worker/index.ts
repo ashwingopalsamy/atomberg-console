@@ -36,6 +36,20 @@ const CSP = [
   "frame-ancestors 'none'",
 ].join("; ");
 
+const REPO = "https://github.com/ashwingopalsamy/atomberg-console";
+const MOVED: Record<string, string> = {
+  "/install": "#install",
+  "/call-budget": "#budget",
+  "/local-control": "#local",
+  "/privacy": "#privacy",
+  "/calls-no-one": "#privacy",
+  "/faq": "#faq",
+  "/unofficial": "",
+  "/developers": `${REPO}/blob/main/docs/MCP.md`,
+  "/design": `${REPO}/blob/main/docs/DESIGN.md`,
+  "/changelog": `${REPO}/blob/main/CHANGELOG.md`,
+};
+
 type Rpc = { jsonrpc?: string; id?: string | number | null; method?: string; params?: Record<string, unknown> };
 
 const reply = (id: Rpc["id"], result: unknown) => ({ jsonrpc: "2.0", id: id ?? null, result });
@@ -136,6 +150,10 @@ export default {
     if (path.startsWith(`${PREFIX}/`)) path = path.slice(PREFIX.length);
 
     if (path === "/mcp" || path === "/mcp/") return mcp(request);
+
+    // The site used to be several pages. Old links land on the matching section.
+    const moved = MOVED[path.replace(/\/$/, "")];
+    if (moved) return Response.redirect(moved.startsWith("http") ? moved : `${url.origin}${PREFIX}/${moved}`, 301);
     if (request.method !== "GET" && request.method !== "HEAD") {
       return new Response("Method not allowed", { status: 405, headers: { allow: "GET, HEAD" } });
     }

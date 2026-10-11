@@ -3,12 +3,8 @@ import Base from "../layouts/Base.astro";
 import { BASE } from "../lib";
 ---
 <Base title="Not found" description="This page does not exist." path="404/">
-  <header class="head" transition:name="copy" transition:animate="none">
-    <span class="mini" transition:name="tile" transition:animate="none">
-      <img src={`${BASE}brand/tile-xl.png`} alt="" width="1280" height="1280" />
-      <img src={`${BASE}brand/glyph-xl.png`} alt="" width="1280" height="1280" />
-    </span>
+  <main class="lost">
     <h1>Nothing here.</h1>
-    <p class="lede">That page does not exist. <a href={BASE}>Back to the start</a>.</p>
-  </header>
+    <p>That page does not exist. <a href={BASE}>Back to the start</a>.</p>
+  </main>
 </Base>

@@ -1,18 +1,20 @@
 # Site
 
-The project site, <https://apps.ashwingopalsamy.in/atomberg-console/>. One screen for people, plain pages and
-machine-readable mirrors for search engines and agents.
+The project site, <https://apps.ashwingopalsamy.in/atomberg-console/>. One page for people, with the install, budget,
+local control, privacy and FAQ sections on the same scroll, plus Markdown mirrors, `llms.txt` and an MCP endpoint
+for search engines and agents. Old page URLs redirect to the matching section.
 
 ```sh
 cd site
 npm ci
 npm run dev        # sync docs, then astro dev
-npm run build      # sync, build, markdown mirrors, sitemap, llms files, share cards
+npm run build      # sync, build, markdown mirrors, sitemap, llms files, share card
 npm run deploy     # build, then wrangler deploy the app Worker and the hub Worker
 ```
 
 - **Content** comes from the repository: `docs/*.md`, `docs/faq.json`, `CHANGELOG.md`. `scripts/sync.mjs` turns
-  them into pages and `src/generated/knowledge.json`. Edit the sources, not the generated pages.
+  them into `src/content-md/` (rendered into the page sections, shell blocks highlighted at build time) and
+  `src/generated/knowledge.json`. Edit the sources, not the generated files.
 - **`worker/`** serves the build, a read-only MCP endpoint at `/mcp`, Markdown for `Accept: text/markdown`, and
   the security headers. `src/mcp-core.ts` holds the six tools; the browser registers the same ones through
   WebMCP when `navigator.modelContext` exists.

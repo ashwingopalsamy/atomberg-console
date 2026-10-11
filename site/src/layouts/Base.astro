@@ -1,27 +1,20 @@
 ---
-import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import Icons from "../components/Icons.astro";
 import { ORIGIN, BASE, NAME, graph } from "../lib";
 
 interface Props {
   title: string;
   description: string;
   path?: string;
-  type?: "website" | "article";
   nodes?: object[];
   home?: boolean;
 }
-const { title, description, path = "", type = "website", nodes = [], home = false } = Astro.props;
+const { title, description, path = "", nodes = [], home = false } = Astro.props;
 
 const canonical = `${ORIGIN}${BASE}${path}`;
 const mirror = (Astro.site?.hostname ?? "").endsWith("github.io");
 const fullTitle = home ? "Atomberg Console: an unofficial menu bar app for Atomberg devices" : `${title} · ${NAME}`;
-const slug = path.replace(/\/$/, "");
-const md = slug ? `${BASE}${slug}.md` : `${BASE}index.md`;
-const og = `${ORIGIN}${BASE}og/${slug || "home"}.png`;
+const og = `${ORIGIN}${BASE}og/home.png`;
 ---
 <!doctype html>
 <html lang="en">
@@ -32,13 +25,13 @@ const og = `${ORIGIN}${BASE}og/${slug || "home"}.png`;
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {mirror && <meta name="robots" content="noindex" />}
-    <link rel="alternate" type="text/markdown" href={md} title="Markdown" />
+    <link rel="alternate" type="text/markdown" href={`${BASE}index.md`} title="Markdown" />
     <link rel="alternate" type="application/atom+xml" href={`${BASE}feed.xml`} title="Atomberg Console releases" />
     <link rel="icon" type="image/png" sizes="64x64" href={`${BASE}favicon-32.png`} />
     <link rel="apple-touch-icon" href={`${BASE}apple-touch-icon.png`} />
-    <meta name="theme-color" content="#0e0f10" />
+    <meta name="theme-color" content="#0d0e10" />
     <meta name="color-scheme" content="dark" />
-    <meta property="og:type" content={type} />
+    <meta property="og:type" content="website" />
     <meta property="og:site_name" content={NAME} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
@@ -46,22 +39,15 @@ const og = `${ORIGIN}${BASE}og/${slug || "home"}.png`;
     <meta property="og:image" content={og} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={`${NAME}: ${title}`} />
+    <meta property="og:image:alt" content={`${NAME}: a menu bar app for Atomberg devices`} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={og} />
     {nodes.length > 0 && <script type="application/ld+json" set:html={JSON.stringify(graph(...nodes))} />}
-    <ClientRouter />
   </head>
   <body>
-    <Icons />
-    <a class="skip" href="#main">Skip to content</a>
-    <div class="shell" data-page={home ? "home" : "doc"}>
-      <Header path={path} />
-      <main id="main" class="page" data-page={home ? "home" : "doc"}><slot /></main>
-      <Footer />
-    </div>
+    <slot />
     <script>
       import "../scripts/webmcp";
     </script>

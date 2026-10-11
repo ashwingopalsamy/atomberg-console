@@ -1,6 +1,6 @@
 // Turns the repository's docs into site pages and one knowledge file. Runs before dev and build.
 // docs/*.md and CHANGELOG.md stay the source of truth; nothing here is edited by hand.
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, rmSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -11,7 +11,6 @@ const gh = "https://github.com/ashwingopalsamy/atomberg-console";
 
 const pages = [
   { slug: "install", src: "site/content/install.md", title: "Install", description: "Install with Homebrew, a DMG or from source, then paste your API key and refresh token once.", order: 1 },
-  { slug: "calls-no-one", src: "site/content/calls-no-one.md", title: "Calls no one", description: "It contacts one cloud host and two UDP ports on your own network. Nothing else, enforced in code and checked in CI.", order: 2 },
   { slug: "call-budget", src: "docs/BUDGET.md", title: "The 100-call budget", description: "A refresh costs one call, a command to a fan on your Wi-Fi costs none, a cloud command costs one, against 100 calls a day.", order: 3 },
   { slug: "local-control", src: "docs/TROUBLESHOOTING.md", title: "Why isn't my fan found locally?", description: "The fan and your Mac are not on the same Wi-Fi, or macOS is blocking Local Network access for the app.", order: 4 },
   { slug: "privacy", src: "docs/PRIVACY.md", title: "Privacy", description: "Two destinations, no analytics, credentials only in your Keychain, and three commands to check it yourself.", order: 5 },
@@ -21,13 +20,12 @@ const pages = [
   { slug: "unofficial", src: "site/content/unofficial.md", title: "Unofficial", description: "Independent project, not affiliated with Atomberg, free for noncommercial use.", order: 9 },
 ];
 
+// Where a docs link lands on the single page. Pages without a section link to the repository instead.
+const anchors = { install: "#install", "call-budget": "#budget", "local-control": "#local", privacy: "#privacy" };
 const slugBySource = {
   "docs/PRIVACY.md": "privacy", "PRIVACY.md": "privacy",
   "docs/BUDGET.md": "call-budget", "BUDGET.md": "call-budget",
   "docs/TROUBLESHOOTING.md": "local-control", "TROUBLESHOOTING.md": "local-control",
-  "docs/MCP.md": "developers", "MCP.md": "developers",
-  "docs/DESIGN.md": "design", "DESIGN.md": "design",
-  "CHANGELOG.md": "changelog", "NOTICE.md": null,
 };
 
 function rewriteLinks(md) {
@@ -35,41 +33,64 @@ function rewriteLinks(md) {
     const [path, hash] = target.split("#");
     const name = path.replace(/^(\.\.\/|\.\/)+/, "");
     const slug = slugBySource[name] ?? slugBySource[name.replace(/^docs\//, "")];
-    if (slug) return `](${base}/${slug}/${hash ? "#" + hash : ""})`;
-    return `](${gh}/blob/main/${name.startsWith("docs/") || /\.(md|sh|swift|json|yml)$/.test(name) ? name : name}${hash ? "#" + hash : ""})`;
+    if (slug && anchors[slug]) return `](${base}/${anchors[slug]})`;
+    return `](${gh}/blob/main/${name}${hash ? "#" + hash : ""})`;
   });
 }
+
+// Shell blocks are highlighted here, at build time, so the page needs no script and no highlighter dependency.
+const esc = (t) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const span = (cls, t) => `<span class="${cls}">${esc(t)}</span>`;
+function highlightLine(line) {
+  if (/^\s*#/.test(line)) return span("o", line);
+  const token = /("(?:[^"\\]|\\.)*"|'[^']*')|(&&|\|\||\||;|\\$)|(\s+)|([^\s"'|&;]+)/g;
+  let out = "";
+  let command = true;
+  for (const m of line.matchAll(token)) {
+    if (m[1]) {
+      out += m[1].startsWith("'")
+        ? span("s", m[1])
+        : m[1].split(/(\$\([^)]*\)|\$\{[^}]*\}|\$[A-Za-z_]+)/).map((part, i) => (i % 2 ? span("v", part) : part ? span("s", part) : "")).join("");
+      command = false;
+    } else if (m[2]) {
+      out += span("o", m[2]);
+      if (m[2] !== "\\") command = true;
+    } else if (m[3]) {
+      out += m[3];
+    } else {
+      const w = m[4];
+      out += span(command ? "c" : w.startsWith("-") ? "f" : /^\d+$/.test(w) ? "v" : /[\/.*]/.test(w) ? "u" : "a", w);
+      command = false;
+    }
+  }
+  return out;
+}
+const highlightFences = (md) =>
+  md.replace(/```(?:sh|bash|shell)\n([\s\S]*?)```/g, (_, code) =>
+    `<pre class="code"><code>${code.replace(/\n$/, "").split("\n").map(highlightLine).join("\n")}</code></pre>`);
 
 const frontmatter = (o) =>
   "---\n" + Object.entries(o).map(([k, v]) => `${k}: ${JSON.stringify(v)}`).join("\n") + "\n---\n";
 
 const knowledge = { pages: [], faq: [], release: null };
 mkdirSync(join(root, "src/generated"), { recursive: true });
-mkdirSync(join(root, "src/pages"), { recursive: true });
+// Earlier builds rendered each doc as its own route; the site is one page now.
+rmSync(join(root, "src/pages/_docs"), { recursive: true, force: true });
+mkdirSync(join(root, "src/content-md"), { recursive: true });
 
 for (const page of pages) {
   const raw = readFileSync(join(repo, page.src), "utf8");
-  // The layout renders the title and the answer line itself.
-  const body = rewriteLinks(raw.replace(/^# .*\n+/, "").replace(/^\*\*Short answer:\*\*.*\n+/, ""));
-  const sourcePath = page.src.startsWith("site/") ? `${gh}/blob/main/${page.src}` : `${gh}/blob/main/${page.src}`;
-  writeFileSync(
-    join(root, "src/pages", `${page.slug}.md`),
-    frontmatter({
-      layout: "../layouts/Doc.astro",
-      title: page.title,
-      description: page.description,
-      slug: page.slug,
-      source: sourcePath,
-      order: page.order,
-    }) + "\n" + body,
-  );
+  // The page renders the title and the answer line itself.
+  const body = rewriteLinks(raw.replace(/^# .*\n+/, "").replace(/^\*\*Short answer:\*\*.*\n+/, "").replace(/^Short answer: .*\n+/, ""));
+  writeFileSync(join(root, "src/content-md", `${page.slug}.md`), highlightFences(body));
   knowledge.pages.push({
     slug: page.slug,
-    url: `${base}/${page.slug}/`,
+    url: `${base}/`,
+    anchor: anchors[page.slug] ?? null,
     title: page.title,
     description: page.description,
     markdown: `# ${page.title}\n\n${page.description}\n\n${body.trim()}\n`,
-    source: sourcePath,
+    source: `${gh}/blob/main/${page.src}`,
   });
 }
 
