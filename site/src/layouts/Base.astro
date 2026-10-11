@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
@@ -12,13 +13,12 @@ interface Props {
   type?: "website" | "article";
   nodes?: object[];
   home?: boolean;
-  bare?: boolean;
 }
-const { title, description, path = "", type = "website", nodes = [], home = false, bare = false } = Astro.props;
+const { title, description, path = "", type = "website", nodes = [], home = false } = Astro.props;
 
 const canonical = `${ORIGIN}${BASE}${path}`;
 const mirror = (Astro.site?.hostname ?? "").endsWith("github.io");
-const fullTitle = home ? "Atomberg Console: an unofficial menu bar console for Atomberg fans" : `${title} · ${NAME}`;
+const fullTitle = home ? "Atomberg Console: an unofficial menu bar app for Atomberg devices" : `${title} · ${NAME}`;
 const slug = path.replace(/\/$/, "");
 const md = slug ? `${BASE}${slug}.md` : `${BASE}index.md`;
 const og = `${ORIGIN}${BASE}og/${slug || "home"}.png`;
@@ -52,13 +52,16 @@ const og = `${ORIGIN}${BASE}og/${slug || "home"}.png`;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={og} />
     {nodes.length > 0 && <script type="application/ld+json" set:html={JSON.stringify(graph(...nodes))} />}
+    <ClientRouter />
   </head>
-  <body class={bare ? "home" : undefined}>
+  <body>
     <Icons />
-    {!bare && <a class="skip" href="#main">Skip to content</a>}
-    {!bare && <Header path={path} />}
-    <main id="main"><slot /></main>
-    {!bare && <Footer />}
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="shell" data-page={home ? "home" : "doc"}>
+      <Header path={path} />
+      <main id="main" class="page" data-page={home ? "home" : "doc"}><slot /></main>
+      <Footer />
+    </div>
     <script>
       import "../scripts/webmcp";
     </script>

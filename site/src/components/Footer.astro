@@ -1,17 +1,14 @@
 ---
 import { BASE, REPO } from "../lib";
 ---
-<footer class="foot">
-  <div class="col">
-    <nav aria-label="More">
-      <a href={`${BASE}calls-no-one/`}>Calls no one</a>
-      <a href={`${BASE}local-control/`}>Local control</a>
-      <a href={`${BASE}developers/`}>Developers</a>
-      <a href={`${BASE}changelog/`}>Changelog</a>
-      <a href={`${BASE}unofficial/`}>Unofficial</a>
-      <a href={`${BASE}llms.txt`}>llms.txt</a>
-      <a href={REPO}>Source</a>
-    </nav>
-    <p>Unofficial. Not affiliated with, endorsed by or supported by Atomberg. Source-available under <a href="https://polyformproject.org/licenses/noncommercial/1.0.0/">PolyForm Noncommercial 1.0.0</a>. Made by <a href="https://ashwingopalsamy.in">Ashwin Gopalsamy</a>.</p>
-  </div>
+<footer class="note" transition:persist="note">
+  <span>Unofficial. Not affiliated with Atomberg.</span>
+  <nav aria-label="More">
+    <a href={`${BASE}calls-no-one/`}>Calls no one</a>
+    <a href={`${BASE}developers/`}>Developers</a>
+    <a href={`${BASE}changelog/`}>Changelog</a>
+    <a href={`${BASE}unofficial/`}>Unofficial</a>
+    <a href={`${BASE}llms.txt`}>llms.txt</a>
+    <a href={REPO}>Source</a>
+  </nav>
 </footer>

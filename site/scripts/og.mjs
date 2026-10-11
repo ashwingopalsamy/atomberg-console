@@ -48,7 +48,7 @@ function card({ title, description, big }) {
 }
 
 const items = [
-  { slug: "home", title: "One click. Every fan.", description: "An unofficial menu bar console for Atomberg fans. It calls one cloud host and your fans, nobody else.", big: true },
+  { slug: "home", title: "All your Atomberg devices, in the menu bar.", description: "Fans, purifiers and locks, one click away. It talks to nobody but Atomberg.", big: true },
   { slug: "faq", title: "Questions, answered.", description: "The 100-call limit, local control, credentials, and what it connects to." },
   ...knowledge.pages.map((p) => ({ slug: p.slug, title: p.title, description: p.description })),
 ];

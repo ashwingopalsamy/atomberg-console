@@ -11,12 +11,16 @@ const nodes: object[] = [
 if (slug === "install") nodes.push(howToInstall());
 ---
 <Base title={title} description={description} path={path} type="article" nodes={nodes}>
-  <article class="doc">
-    <div class="col">
-      <h1>{title}</h1>
-      <p class="lede">{description}</p>
-      <div class="prose"><slot /></div>
-      <p class="docfoot"><a href={source}>Edit on GitHub</a> · <a href={`${BASE}${slug}.md`}>Markdown</a></p>
-    </div>
-  </article>
+  <header class="head" transition:name="copy" transition:animate="none">
+    <span class="mini" transition:name="tile" transition:animate="none">
+      <img src={`${BASE}brand/tile-xl.png`} alt="" width="1280" height="1280" />
+      <img src={`${BASE}brand/glyph-xl.png`} alt="" width="1280" height="1280" />
+    </span>
+    <h1>{title}</h1>
+    <p class="lede">{description}</p>
+    <p class="meta"><a href={source}>Edit on GitHub</a><a href={`${BASE}${slug}.md`}>Markdown</a></p>
+  </header>
+  <div class="scroll" tabindex="0" role="region" aria-label={`${title}, full text`} transition:name="content" transition:animate="none">
+    <div class="prose"><slot /></div>
+  </div>
 </Base>

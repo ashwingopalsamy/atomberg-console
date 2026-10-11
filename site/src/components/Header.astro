@@ -4,19 +4,18 @@ const { path = "" } = Astro.props;
 const links = [
   ["install/", "Install"],
   ["call-budget/", "Budget"],
+  ["local-control/", "Local control"],
   ["privacy/", "Privacy"],
   ["faq/", "FAQ"],
 ];
 ---
-<header class="top">
-  <div class="in">
-    <a class="mark" href={BASE} aria-label="Atomberg Console, home"><img src={`${BASE}icon-192.png`} alt="" width="36" height="36" /></a>
-    <nav class="nav" aria-label="Main">
-      <span class="pill" aria-hidden="true"></span>
-      {links.map(([href, label]) => <a href={`${BASE}${href}`} aria-current={path === href ? "page" : undefined}>{label}</a>)}
-    </nav>
-    <a class="round" href={REPO} rel="noopener" aria-label="Atomberg Console on GitHub"><svg class="i"><use href="#i-github" /></svg></a>
-  </div>
+<header class="bar" transition:persist="bar">
+  <a class="word" href={BASE}>Atomberg Console</a>
+  <nav class="nav" aria-label="Main">
+    <span class="pill" aria-hidden="true"></span>
+    {links.map(([href, label]) => <a href={`${BASE}${href}`} aria-current={path === href ? "page" : undefined}>{label}</a>)}
+  </nav>
+  <a class="round" href={REPO} rel="noopener" aria-label="Atomberg Console on GitHub"><svg class="i"><use href="#i-github" /></svg></a>
 </header>
 <script>
   import "../scripts/nav";

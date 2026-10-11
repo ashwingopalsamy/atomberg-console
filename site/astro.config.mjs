@@ -8,7 +8,7 @@ export default defineConfig({
   base: "/atomberg-console/",
   trailingSlash: "always",
   compressHTML: true,
-  prefetch: false,
+  prefetch: { prefetchAll: true, defaultStrategy: "viewport" },
   devToolbar: { enabled: false },
   build: {
     format: "directory",

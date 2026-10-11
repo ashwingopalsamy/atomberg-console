@@ -8,47 +8,32 @@ const layer = (name: string) => `${BASE}brand/${name}-xl.png`;
 ---
 <Base
   home
-  bare
   title="Atomberg Console"
   description="An unofficial macOS menu bar app for Atomberg fans, purifiers and locks. Controls fans over your Wi-Fi first, calls one cloud host as a fallback, and spends at most one of the 100 daily calls per command."
   nodes={nodes}
 >
-  <div class="screen">
-    <header class="bar">
-      <a class="word" href={BASE}>Atomberg Console</a>
-      <a class="round" href={REPO} rel="noopener" aria-label="Atomberg Console on GitHub"><svg class="i"><use href="#i-github" /></svg></a>
-    </header>
-
-    <div class="words">
-      <h1>Your Atomberg fans, in the menu bar.</h1>
-      <p>Change a speed without picking up your phone. It talks to your fans over your Wi‑Fi and calls nobody else.</p>
-      <div class="actions">
-        <a class="btn solid" href={`${REPO}/releases/latest`}>Download</a>
-        <button class="btn" type="button" data-copy={brew} aria-label="Copy the Homebrew install command">
-          <span>Copy brew command</span>
-          <svg class="i copy"><use href="#i-copy" /></svg><svg class="i ok"><use href="#i-check" /></svg>
-        </button>
-      </div>
-      <p class="fine">macOS 26 or later. Unofficial, not affiliated with Atomberg.</p>
-    </div>
-
-    <div class="stage">
-      <div class="light" aria-hidden="true"></div>
-      <button class="fan" type="button" aria-label="The app icon, a four-blade fan. Drag it or press Space to spin it.">
-        <img class="tile" src={layer("tile")} alt="" width="1280" height="1280" />
-        <img class="g g2" src={layer("glyph")} alt="" width="1280" height="1280" />
-        <img class="g g1" src={layer("glyph")} alt="" width="1280" height="1280" />
-        <img class="g g0" src={layer("glyph")} alt="" width="1280" height="1280" />
+  <div class="words" transition:name="copy" transition:animate="none">
+    <h1><span>All your Atomberg</span> <span>devices, in the</span> <span>menu bar.</span></h1>
+    <p>Fans, purifiers and locks, one click away. Fans answer over your Wi‑Fi first, and the app talks to nobody but Atomberg.</p>
+    <div class="actions">
+      <a class="btn solid" href={`${REPO}/releases/latest`}>Download</a>
+      <button class="btn" type="button" data-copy={brew} aria-label="Copy the Homebrew install command">
+        <span>Copy brew command</span>
+        <svg class="i copy"><use href="#i-copy" /></svg><svg class="i ok"><use href="#i-check" /></svg>
       </button>
-      <p class="hint" aria-hidden="true">Flick it</p>
     </div>
+    <p class="fine">macOS 26 or later. Free for personal use.</p>
+  </div>
 
-    <footer class="note">
-      <a href={`${BASE}install/`}>Install</a>
-      <a href={`${BASE}call-budget/`}>Budget</a>
-      <a href={`${BASE}privacy/`}>Privacy</a>
-      <a href={`${BASE}faq/`}>FAQ</a>
-    </footer>
+  <div class="stage">
+    <div class="light" aria-hidden="true"></div>
+    <button class="fan" type="button" aria-label="The app icon, a four-blade fan. Drag it or press Space to spin it." transition:name="tile" transition:animate="none">
+      <img class="tile" src={layer("tile")} alt="" width="1280" height="1280" />
+      <img class="g g2" src={layer("glyph")} alt="" width="1280" height="1280" />
+      <img class="g g1" src={layer("glyph")} alt="" width="1280" height="1280" />
+      <img class="g g0" src={layer("glyph")} alt="" width="1280" height="1280" />
+    </button>
+    <p class="hint" aria-hidden="true">Flick it</p>
   </div>
 
   <script>

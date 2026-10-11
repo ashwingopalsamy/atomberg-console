@@ -1,5 +1,6 @@
 // The icon is a real fan: drag it, flick it, and it keeps turning with the momentum, then settles to a slow idle.
 // Fast blades leave a short trail. Everything here is decoration; the page reads the same without it.
+function init() {
 const fan = document.querySelector<HTMLButtonElement>(".fan");
 const stage = document.querySelector<HTMLElement>(".stage");
 
@@ -38,6 +39,10 @@ if (fan && stage) {
   };
 
   const frame = (now: number) => {
+    if (!fan.isConnected) {
+      raf = 0; // the page was swapped out
+      return;
+    }
     const dt = Math.min(0.05, (now - last) / 1000);
     last = now;
     if (!dragging) {
@@ -121,3 +126,6 @@ copy?.addEventListener("click", async () => {
     if (label) label.textContent = "Copy brew command";
   }, 1600);
 });
+}
+
+document.addEventListener("astro:page-load", init);
