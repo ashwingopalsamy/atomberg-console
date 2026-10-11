@@ -1,4 +1,3 @@
 Atomberg Console
 Made by Ashwin Gopalsamy, https://ashwingopalsamy.in
-Unofficial. Not affiliated with Atomberg.
-Built with Astro. Type: Inter, Newsreader, JetBrains Mono.
+Built with Astro. Type: Geist and Geist Mono.

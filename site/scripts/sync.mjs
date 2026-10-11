@@ -17,7 +17,6 @@ const pages = [
   { slug: "developers", src: "docs/MCP.md", title: "Developers and agents", description: "Read-only WebMCP and remote MCP tools for the docs, llms.txt, and the planned local MCP contract for the app.", order: 6 },
   { slug: "design", src: "docs/DESIGN.md", title: "Design", description: "Principles, tokens, layout and status glyphs of the app.", order: 7 },
   { slug: "changelog", src: "CHANGELOG.md", title: "Changelog", description: "What changed in each release.", order: 8 },
-  { slug: "unofficial", src: "site/content/unofficial.md", title: "Unofficial", description: "Independent project, not affiliated with Atomberg, free for noncommercial use.", order: 9 },
 ];
 
 // Where a docs link lands on the single page. Pages without a section link to the repository instead.

@@ -13,7 +13,7 @@ const { title, description, path = "", nodes = [], home = false } = Astro.props;
 
 const canonical = `${ORIGIN}${BASE}${path}`;
 const mirror = (Astro.site?.hostname ?? "").endsWith("github.io");
-const fullTitle = home ? "Atomberg Console: an unofficial menu bar app for Atomberg devices" : `${title} · ${NAME}`;
+const fullTitle = home ? "Atomberg Console: a menu bar app for Atomberg devices" : `${title} · ${NAME}`;
 const og = `${ORIGIN}${BASE}og/home.png`;
 ---
 <!doctype html>

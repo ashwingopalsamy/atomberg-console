@@ -14,7 +14,7 @@ const BASE = "/atomberg-console/";
 const REPO = "https://github.com/ashwingopalsamy/atomberg-console";
 const abs = (path = "") => `${ORIGIN}${BASE}${path}`;
 const summary =
-  "An unofficial macOS menu bar app for Atomberg fans, water purifiers and locks. It controls fans over your Wi-Fi (UDP 5625 and 5600) and falls back to Atomberg's cloud API, spending at most one of the 100 daily calls per command. One cloud host, no dependencies, no analytics. Source-available under PolyForm Noncommercial 1.0.0. Not affiliated with Atomberg.";
+  "A macOS menu bar app for Atomberg fans, water purifiers and locks, made by Ashwin Gopalsamy. It controls fans over your Wi-Fi (UDP 5625 and 5600) and falls back to Atomberg's cloud API, spending at most one of the 100 daily calls per command. One cloud host, no dependencies, no analytics. Source-available under PolyForm Noncommercial 1.0.0.";
 const release = knowledge.release;
 const lastmod = release?.date ?? new Date().toISOString().slice(0, 10);
 
@@ -38,7 +38,7 @@ write("faq.md", `# FAQ\n\n> Short answers about Atomberg Console.\n\nCanonical: 
 
 const sections = [
   ["Start here", ["install", "call-budget", "local-control", "privacy"]],
-  ["Reference", ["developers", "design", "changelog", "unofficial"]],
+  ["Reference", ["developers", "design", "changelog"]],
 ];
 const bySlug = Object.fromEntries(mirrors.map((m) => [m.slug, m]));
 const homeLinks = sections

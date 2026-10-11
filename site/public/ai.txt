@@ -6,7 +6,7 @@ Please link to the page you used.
 
 Prose:   CC BY 4.0 (attribution required).
 Code:    PolyForm Noncommercial 1.0.0 (source-available), https://github.com/ashwingopalsamy/atomberg-console
-Logo:    The Atomberg name and logo belong to Atomberg. This project is unofficial and uses the name descriptively only.
+Names:   Atomberg and its logo belong to their owner. The name is used here to say what the app works with.
 
 Machine-readable:
   /atomberg-console/llms.txt

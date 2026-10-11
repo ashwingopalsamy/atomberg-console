@@ -48,6 +48,12 @@
     "a": "No. It is unofficial and not affiliated with Atomberg. Source-available under PolyForm Noncommercial 1.0.0."
   },
   {
+    "id": "who-makes-it",
+    "app": false,
+    "q": "Who makes Atomberg Console?",
+    "a": "Ashwin Gopalsamy, an independent developer. The source is on GitHub at ashwingopalsamy/atomberg-console, under the PolyForm Noncommercial License 1.0.0."
+  },
+  {
     "id": "devices",
     "app": false,
     "q": "Which Atomberg devices does it support?",

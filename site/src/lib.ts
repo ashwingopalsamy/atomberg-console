@@ -5,7 +5,7 @@ export const BASE = "/atomberg-console/";
 export const REPO = "https://github.com/ashwingopalsamy/atomberg-console";
 export const LICENSE = "https://polyformproject.org/licenses/noncommercial/1.0.0/";
 export const NAME = "Atomberg Console";
-export const TAGLINE = "an unofficial menu bar console for atomberg fans, purifiers and locks";
+export const TAGLINE = "a menu bar app for atomberg fans, purifiers and locks";
 
 export const faq = knowledge.faq as { id: string; q: string; a: string; app: boolean }[];
 export const pages = knowledge.pages as { slug: string; url: string; title: string; description: string }[];
@@ -26,7 +26,7 @@ export function softwareApplication() {
     "@id": `${absolute()}#app`,
     name: NAME,
     description:
-      "An unofficial macOS menu bar app for Atomberg fans, water purifiers and locks. Controls fans over your Wi-Fi (UDP) and falls back to Atomberg's cloud API, spending at most one of the 100 daily calls per command.",
+      "A macOS menu bar app for Atomberg fans, water purifiers and locks. Controls fans over your Wi-Fi (UDP) and falls back to Atomberg's cloud API, spending at most one of the 100 daily calls per command.",
     url: absolute(),
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "macOS 26 or later",
@@ -36,7 +36,10 @@ export function softwareApplication() {
     isAccessibleForFree: true,
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     downloadUrl: `${REPO}/releases/latest`,
-    installUrl: absolute("install/"),
+    installUrl: absolute("#install"),
+    softwareRequirements: "macOS 26 or later; an Atomberg account with Developer Mode on",
+    keywords: ["Atomberg", "menu bar app", "macOS", "smart fan", "air purifier", "smart lock", "local control", "UDP"],
+    publisher: author,
     featureList: [
       "Local control of fans over UDP 5625 and 5600",
       "Cloud fallback within Atomberg's 100 calls a day",

@@ -22,11 +22,8 @@ const el = (type, style, children) => ({ type, props: { style, children } });
 const row = (style, children) => el("div", { display: "flex", ...style }, children);
 
 function card({ title, description, big }) {
-  const cells = Array.from({ length: 50 }, (_, i) =>
-    el("div", { width: 18, height: 26, borderRadius: 5, background: i < 6 ? "#f5f5f7" : "#1c1c20" }),
-  );
   return row(
-    { width: 1200, height: 630, background: "#0e0f10", padding: 72, flexDirection: "column", justifyContent: "space-between", fontFamily: "Geist" },
+    { width: 1056, height: 486, background: "#0e0f10", padding: 72, flexDirection: "column", justifyContent: "space-between", fontFamily: "Geist" },
     [
       row({ alignItems: "center", gap: 20 }, [
         row({ position: "relative", width: 72, height: 72 }, [
@@ -35,20 +32,17 @@ function card({ title, description, big }) {
         ]),
         el("div", { display: "flex", fontSize: 30, fontWeight: 600, color: "#f5f5f7", letterSpacing: -0.5 }, "Atomberg Console"),
       ]),
-      row({ flexDirection: "column", gap: 22, maxWidth: 940 }, [
-        el("div", { display: "flex", fontSize: big ? 112 : 84, fontWeight: 600, color: "#f5f5f7", letterSpacing: big ? -5 : -3.5, lineHeight: 1.02 }, title),
+      row({ flexDirection: "column", gap: 22, maxWidth: 1040 }, [
+        el("div", { display: "flex", flexDirection: "column", fontSize: big ? 76 : 72, fontWeight: 600, color: "#f5f5f7", letterSpacing: big ? -3.2 : -3, lineHeight: 1.06 }, title.split("|").map((line, i) => el("div", { display: "flex", color: i === 0 ? "#f5f5f7" : "#a4a7ae" }, line))),
         el("div", { display: "flex", fontSize: 32, color: "#8b8b95", lineHeight: 1.35 }, description),
       ]),
-      row({ justifyContent: "space-between", alignItems: "flex-end" }, [
-        el("div", { display: "flex", fontSize: 24, color: "#5e5e68" }, "apps.ashwingopalsamy.in/atomberg-console"),
-        row({ flexWrap: "wrap", gap: 6, width: 25 * 24 }, cells),
-      ]),
+      el("div", { display: "flex", fontSize: 24, color: "#5e5e68" }, "apps.ashwingopalsamy.in/atomberg-console"),
     ],
   );
 }
 
 const items = [
-  { slug: "home", title: "All your Atomberg devices, in the menu bar.", description: "Fans, purifiers and locks, one click away. It talks to nobody but Atomberg.", big: true },
+  { slug: "home", title: "All your Atomberg devices,|in the menu bar.", description: "Fans, purifiers and locks, one click away.", big: true },
 ];
 
 mkdirSync(join(dist, "og"), { recursive: true });

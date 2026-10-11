@@ -14,7 +14,7 @@ const PROTOCOLS = ["2025-06-18", "2025-03-26", "2024-11-05"];
 const MAX_BODY = 16 * 1024;
 const MAX_BATCH = 16;
 const INSTRUCTIONS =
-  "Read-only documentation tools for Atomberg Console, an unofficial macOS menu bar app for Atomberg fans. No credentials are needed or accepted.";
+  "Read-only documentation tools for Atomberg Console, a macOS menu bar app for Atomberg fans, purifiers and locks. No credentials are needed or accepted.";
 
 const CORS = {
   "access-control-allow-origin": "*",
