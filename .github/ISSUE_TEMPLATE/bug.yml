@@ -1,0 +1,35 @@
+name: Bug
+description: Something does not work
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: And what you expected instead.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Atomberg Console › About
+    validations:
+      required: true
+  - type: input
+    id: macos
+    attributes:
+      label: macOS
+    validations:
+      required: true
+  - type: textarea
+    id: devices
+    attributes:
+      label: Devices
+      description: Model and series (for example Renesa Halo, R3), and whether you use local control.
+  - type: textarea
+    id: calls
+    attributes:
+      label: calls.log
+      description: "Last lines of ~/Library/Application Support/ATOMBERG/calls.log. It holds no secrets."
+      render: text
