@@ -5,14 +5,23 @@ import AppKit
 /// window draws the same image.
 @MainActor
 enum AppIconRenderer {
-    static func image(size: CGFloat) -> NSImage {
+    /// `.full` is the icon. `.tile` and `.glyph` are its two layers, which the README banner stacks so only the
+    /// blades can turn.
+    enum Layer: String {
+        case full, tile, glyph
+    }
+
+    static func image(size: CGFloat, layer: Layer = .full) -> NSImage {
         NSImage(size: NSSize(width: size, height: size), flipped: false) { rect in
             // The macOS icon grid: the tile is 80% of the canvas, centred, with corners of about 22.4% of its width.
             let tile = rect.insetBy(dx: rect.width * 0.1, dy: rect.height * 0.1)
-            let radius = tile.width * 0.2237
-            let path = NSBezierPath(roundedRect: tile, xRadius: radius, yRadius: radius)
-            NSGradient(colors: [NSColor(white: 0.20, alpha: 1), NSColor(white: 0.055, alpha: 1)])?
-                .draw(in: path, angle: -90)
+            if layer != .glyph {
+                let radius = tile.width * 0.2237
+                let path = NSBezierPath(roundedRect: tile, xRadius: radius, yRadius: radius)
+                NSGradient(colors: [NSColor(white: 0.20, alpha: 1), NSColor(white: 0.055, alpha: 1)])?
+                    .draw(in: path, angle: -90)
+            }
+            guard layer != .tile else { return true }
 
             let configuration = NSImage.SymbolConfiguration(pointSize: tile.width * 0.5, weight: .regular)
                 .applying(NSImage.SymbolConfiguration(paletteColors: [.white]))
@@ -30,7 +39,7 @@ enum AppIconRenderer {
     }
 
     /// A square PNG of exactly `pixels` by `pixels`, independent of the display's scale.
-    static func pngData(pixels: Int) -> Data? {
+    static func pngData(pixels: Int, layer: Layer = .full) -> Data? {
         guard let representation = NSBitmapImageRep(
             bitmapDataPlanes: nil,
             pixelsWide: pixels,
@@ -47,7 +56,7 @@ enum AppIconRenderer {
         defer { NSGraphicsContext.restoreGraphicsState() }
         guard let context = NSGraphicsContext(bitmapImageRep: representation) else { return nil }
         NSGraphicsContext.current = context
-        image(size: CGFloat(pixels)).draw(in: NSRect(x: 0, y: 0, width: pixels, height: pixels))
+        image(size: CGFloat(pixels), layer: layer).draw(in: NSRect(x: 0, y: 0, width: pixels, height: pixels))
         return representation.representation(using: .png, properties: [:])
     }
 }
