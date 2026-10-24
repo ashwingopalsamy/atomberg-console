@@ -5,7 +5,11 @@
   "workers_dev": false,
   "preview_urls": false,
   "routes": [{ "pattern": "apps.ashwingopalsamy.in", "custom_domain": true }],
-  "services": [{ "binding": "ATOMBERG_CONSOLE", "service": "atomberg-console-site" }],
+  "services": [
+    { "binding": "ATOMBERG_CONSOLE", "service": "atomberg-console-site" },
+    { "binding": "DELL_MONITOR_CONSOLE", "service": "dell-monitor-console-site" },
+    { "binding": "CLAUDE_CODE_THEME", "service": "claude-code-theme-site" }
+  ],
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
