@@ -8,16 +8,13 @@ private let badgeGap: CGFloat = 1.5
 // NSObject is required: the status button sends its action through the Objective-C runtime.
 @MainActor
 final class StatusItemController: NSObject {
-    // Fixed so a count appearing or changing never shifts the neighbouring menu bar items.
-    private static let itemWidth: CGFloat = 40
-
     private let store: DeviceStore
     private let statusItem: NSStatusItem
     private let popover: PopoverWindow
 
     init(store: DeviceStore, onReplaceCredentials: @escaping () -> Void) {
         self.store = store
-        statusItem = NSStatusBar.system.statusItem(withLength: StatusItemController.itemWidth)
+        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         popover = PopoverWindow(store: store, onReplaceCredentials: onReplaceCredentials)
         super.init()
 

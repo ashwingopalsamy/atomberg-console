@@ -1,13 +1,107 @@
 {
   "host": "apps.ashwingopalsamy.in",
-  "owner": { "name": "Ashwin Gopalsamy", "url": "https://ashwingopalsamy.in" },
+  "site": {
+    "title": "Apps by Ashwin Gopalsamy",
+    "description": "Apps, sites and tools built by Ashwin Gopalsamy, from macOS menu bar utilities to data atlases and editor themes.",
+    "headline": [
+      "Small annoyances,",
+      "fixed."
+    ],
+    "next": "Your annoyance goes here."
+  },
+  "owner": {
+    "name": "Ashwin Gopalsamy",
+    "url": "https://ashwingopalsamy.in",
+    "tagline": "Distributed systems · Fintech · AI",
+    "links": [
+      {
+        "label": "Website",
+        "url": "https://ashwingopalsamy.in"
+      },
+      {
+        "label": "GitHub",
+        "url": "https://github.com/ashwingopalsamy"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/ashwingopalsamy"
+      },
+      {
+        "label": "X",
+        "url": "https://x.com/ashwin2125"
+      }
+    ]
+  },
   "apps": [
     {
       "slug": "atomberg-console",
       "binding": "ATOMBERG_CONSOLE",
+      "kind": "macos",
       "name": "Atomberg Console",
+      "annoyance": "Your fan has a remote. You have no idea where it is.",
       "description": "A macOS menu bar app for Atomberg fans, purifiers and locks.",
       "repo": "https://github.com/ashwingopalsamy/atomberg-console"
+    },
+    {
+      "slug": "dell-monitor-console",
+      "binding": "DELL_MONITOR_CONSOLE",
+      "kind": "macos",
+      "name": "Dell Monitor Console",
+      "annoyance": "Dell's Display Manager: a whole app for one slider.",
+      "description": "A lite macOS menu bar app for the brightness of your Dell and other DDC/CI displays.",
+      "repo": "https://github.com/ashwingopalsamy/dell-monitor-console"
+    },
+    {
+      "slug": "claude-code-theme",
+      "binding": "CLAUDE_CODE_THEME",
+      "kind": "editor",
+      "name": "Claude Code Theme",
+      "annoyance": "Your editor is a flashbang at 2 a.m.",
+      "description": "Calm colour themes for long sessions in VS Code, Cursor and Windsurf. Ten flavors, bold or not.",
+      "repo": "https://github.com/ashwingopalsamy/claude-code-theme"
+    },
+    {
+      "slug": "rates",
+      "kind": "webapp",
+      "category": "FinanceApplication",
+      "name": "Policy Rate Atlas",
+      "annoyance": "Central bank rates live on seven websites, in seven formats.",
+      "description": "Seven economies, every rate change and decision, checked against each bank's own publications.",
+      "url": "https://rates.ashwingopalsamy.in/",
+      "icon": "/icons/rates.svg",
+      "llms": true,
+      "repo": "https://github.com/ashwingopalsamy/policy-rates-atlas"
+    },
+    {
+      "slug": "pismozones",
+      "kind": "webapp",
+      "name": "Pismo Zones",
+      "annoyance": "It's always 3 a.m. for someone on your team.",
+      "description": "What time is it for the team? Every office's local time, working state and daylight, and any moment converted.",
+      "url": "https://pismozones.ashwingopalsamy.in/",
+      "icon": "/icons/pismozones.png",
+      "llms": true,
+      "repo": "https://github.com/ashwingopalsamy/pismozones"
+    },
+    {
+      "slug": "agam",
+      "kind": "website",
+      "name": "Agam",
+      "annoyance": "Every home build ends with \"where did the money go?\"",
+      "description": "A construction journal for a home taking shape in Tamil Nadu: money spent, work done and the crew on each recorded day.",
+      "url": "https://home.ashwingopalsamy.in/",
+      "icon": "/icons/agam.png",
+      "llms": true
+    },
+    {
+      "slug": "mkks-organics",
+      "kind": "website",
+      "name": "MKKS Organics",
+      "annoyance": "Supermarket mangoes taste like a rumour.",
+      "description": "Premium organic mangoes from Pollachi.",
+      "url": "https://mkksorganics.vercel.app/",
+      "icon": "/icons/mkks-organics.png",
+      "repo": "https://github.com/ashwingopalsamy/host-mkks-organics"
     }
   ]
 }
